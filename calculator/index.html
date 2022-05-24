@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Calculator</title>
+	<style type="text/css">
+		body{
+			margin: 5px 7px;
+			width: auto;
+			height: auto;
+		}
+		input{
+			background-color: #28293d;
+			color: white;
+			font-size: xx-large;
+			width: 100%;
+			border: none;
+			margin: 0px 10px;
+			border-radius: 5px;
+			width: 370px;
+			text-align: right;
+			padding: 5px,5px;
+		}
+		button{
+			text-decoration: none;
+			border: none;
+			border-radius: 10px;
+			background-color: #28293d;
+			color: white;
+			font-size: unset;
+			text-align: center;
+			padding: 15px 28px;
+			margin: 2px;
+		}
+		button:active {
+  			background-color: #222;
+  			transform: translateY(2px);
+  		}
+		.button{
+			display: inline-block;
+			margin: 2px;
+			letter-spacing: 20px;
+		}
+		.display{
+			display: inline-block;
+		}
+		.Calculator{
+			display: grid;
+			width:fit-content;
+			align-content: center;
+			justify-content: center;
+			border: whitesmoke solid 2px;
+			border-radius: 5px;
+
+		}
+		select{
+			background-color: #28293d;
+			color: white;
+			font-size: medium;
+			width: 100%;
+			border: none;
+			margin: 0px;
+			border-radius: 5px;
+			text-align: right;
+			padding: 5px,5px;
+		}
+	
+
+	</style>
+</head>
+<body style="background-color: black;font-family: monospace;color: white">
+	<div class="Calculator">
+		<center><h2>Sci-Calculator</h2></center>
+		<center>
+	<div class="display-history">
+		<input type="text" id ="display-history" name="calc-display" disabled>
+	</div>
+	<div class="display">
+		<input type="text" id ="display" name="calc-display" disabled>
+	</div></center>
+	<div class='button' style="width: 100%;">
+		<button value="clear" onclick=clearF()>Clear</button>
+		<button value="back" onclick=backspace()>Backspace</button>
+		<button value="MC" onclick=MC()><select id="selectoption" name = "deg"><option value="deg">deg</option><option value="rad">rad</option></select></button>
+		
+	</div>
+	<div class="row-1">
+		<button id = "1" value="1" onclick=val1(this.id)>1</button>
+		<button id = "2" value="2" onclick=val1(this.id)>2</button>
+		<button id = "3" value="3" onclick=val1(this.id)>3</button>
+		<button id = "(" value="(" onclick=val1(this.id)>(</button>
+		<button id = ")" value=")" onclick=val1(this.id)>)</button>
+	</div>
+	<div class="row-2">
+		<button id = "4" value="4" onclick=val1(this.id)>4</button>
+		<button id = "5" value="5" onclick=val1(this.id)>5</button>
+		<button id = "6" value="6" onclick=val1(this.id)>6</button>
+		<button id = "/" value="/" onclick=val1(this.id)>/</button>
+		<button id = "*" value="*" onclick=val1(this.id)>X</button>
+	</div>
+	<div class="row-3">
+		<button id = "7" value="7" onclick=val1(this.id)>7</button>
+		<button id = "8" value="8" onclick=val1(this.id)>8</button>
+		<button id = "9" value="9" onclick=val1(this.id)>9</button>
+		<button id = "-" value="-" onclick=val1(this.id)>-</button>
+		<button id = "+" value="+" onclick=val1(this.id)>+</button>
+	</div>
+	<div class="row-4">
+		<button id = "pi" value="22/7" onclick=val1(this.id)>π</button>
+		<button id = "0" value="0" onclick=val1(this.id)>0</button>
+		<button id = "." value="." onclick=val1(this.id)>.</button>
+		<button id = "Equal" value="Equal" style="width:143px;" onclick=equal()>=</button>
+	</div>
+	<div class="row-5">
+		<button id = "sin" value="Math.log" onclick=sciCal(this.id)>sinx</button>
+		<button id = "cos" value="Math.log" onclick=sciCal(this.id)>cosx</button>
+		<button id = "tan" value="Math.log" onclick=sciCal(this.id)>tanx</button>
+		<button id = "log10" value="Math.log" onclick=sciCal(this.id)>log</button>
+	</div>
+	<div class="row-6">
+		<button id = "sin-1" value="Math.log" onclick=sciCal(this.id)>sinx<sup>-1</sup></button>
+		<button id = "cos-1" value="Math.log" onclick=sciCal(this.id)>cosx<sup>-1</sup></button>
+		<button id = "tan-1" value="Math.log" onclick=sciCal(this.id)>tanx<sup>-1</sup></button>
+		<button id = "ln" value="." onclick=sciCal(this.id)>ln</button>
+		
+	</div>
+	<div class="row-7">
+		<button id = "**2" value="**2" onclick=val1(this.id)>x<sup>2</sup></button>
+		<button id = "**" value="**" onclick=val1(this.id)>x<sup>y</sup></button>
+		<button id = "underroot" value="." onclick=sciCal(this.id)>√</button>
+		<button id = "root" value="." onclick=sciCal(this.id)><sup>y</sup>√x</button>
+		<button id = "e" value="e" onclick=val1(this.id)>e</button>
+		
+	</div>
+
+	<script>
+	var pi = Math.PI;
+	var e = Math.E;
+	var ln = Math.LN10;
+	var loga = Math.LOG;
+    function clearF() {
+      var grab = document.getElementById("display");
+      var grabh = document.getElementById("display-history");
+        if (grab.value !="" || grabh.value !=""){
+            grab.value = "";
+            grabh.value= "";
+
+        }
+    }
+    function backspace() {
+      var grab = document.getElementById("display");
+        if (grab.value !="") {
+            grab.value = grab.value.slice(0,-1);
+        }
+    }
+    function MC() {
+      var grab = document.getElementById("display");
+        if (grab.value !="") {
+            grab.value = "";
+        }
+    }
+
+    function equal() {
+      var grab = document.getElementById("display");
+      var grabh = document.getElementById("display-history");
+      var a = "0123456789";
+      if(a.includes(grab.value.substr(0,1)) || (grabh.value=="")){
+      	grabh.value = "";
+        document.getElementById("display-history").value = eval(grab.value);
+        grab.value = "";
+      }
+      else{
+      	var answer = eval(grabh.value+grab.value);
+      	document.getElementById("display-history").value = answer;
+      	grab.value = "";
+      }
+    }
+    function val1(ID){
+    	var grab = document.getElementById("display");
+    	var valnum = ID
+		grab.value = grab.value+ID
+    }
+	function sciCal(ID){
+		var grab = document.getElementById("display");
+		var optionss = document.getElementById("selectoption");
+		var opt = optionss.options[optionss.selectedIndex].value
+    	if (ID == "log10"){
+		grab.value = Math.log10(eval(grab.value));
+		}
+		if (ID == "ln"){
+		grab.value = Math.log(eval(grab.value));
+		}
+		if (ID == "underroot"){
+		grab.value = Math.sqrt(eval(grab.value));
+		}
+		if (ID == "root"){
+		grab.value = grab.value+'**(1/';
+		}
+		if (ID == "sin"){
+			if (opt=='rad'){
+				grab.value = Math.sin(eval(grab.value));
+			}
+			else{
+				op = (grab.value/180)*Math.PI
+				grab.value = Math.sin(op);
+			}
+		}
+		if (ID == "cos"){
+			if (opt=='rad'){
+				grab.value = Math.cos(eval(grab.value));
+			}
+			else{
+				op = (grab.value/180)*Math.PI
+				grab.value = Math.cos(op);
+			}
+		}
+		if (ID == "tan"){
+			if (opt=='rad'){
+				grab.value = Math.tan(eval(grab.value));
+			}
+			else{
+				op = (grab.value/180)*Math.PI
+				grab.value = Math.tan(op);
+			}
+		}
+		if (ID == "sin-1"){
+			if (opt=='rad'){
+				grab.value = Math.asin(eval(grab.value));
+			}
+			else{
+				grab.value = (Math.asin(eval(grab.value)))*180/Math.PI;
+
+			}
+		}
+		if (ID == "cos-1"){
+			if (opt=='rad'){
+				grab.value = Math.acos(eval(grab.value));
+			}
+			else{
+				grab.value = (Math.acos(eval(grab.value)))*180/Math.PI;
+
+			}
+		}
+		if (ID == "tan-1"){
+			if (opt=='rad'){
+				grab.value = Math.atan(eval(grab.value));
+			}
+			else{
+				grab.value = (Math.atan(eval(grab.value)))*180/Math.PI;
+
+			}
+		}
+	}
+
+	</script>
+	</div>
+</body>
+</html>
